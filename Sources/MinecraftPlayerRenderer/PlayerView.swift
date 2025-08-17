@@ -13,7 +13,11 @@ struct ScenePreviewView_Previews: PreviewProvider {
     static var previews: some View {
         if let data = try? FileHandle(forReadingFrom: Bundle.module.url(forResource: "default", withExtension: "png")!).readToEnd() {
             SceneView(
-                scene: PlayerScene.makeScene(data: data, isSlim: true),
+                scene: PlayerScene.makeScene(
+                    data: data,
+                    cameraPreset: .default,
+                    isSlim: true
+                ),
                 options: [.autoenablesDefaultLighting, .allowsCameraControl]
             )
         }

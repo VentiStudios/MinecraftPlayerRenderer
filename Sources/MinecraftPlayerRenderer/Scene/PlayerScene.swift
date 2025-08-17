@@ -9,7 +9,7 @@ import SceneKit
 import SwiftUI
 
 public class PlayerScene {
-    public static func makeScene(data: Data, isSlim: Bool = false) -> SCNScene {
+    public static func makeScene(data: Data, cameraPreset: CameraPreset = .default, isSlim: Bool = false) -> SCNScene {
         let scene = SCNScene()
         
         guard let modelURL = Bundle.module.url(forResource: "player_\(isSlim ? "slim" : "wide")", withExtension: "scn"),
@@ -36,9 +36,11 @@ public class PlayerScene {
         }
         
         let camera = SCNCamera()
+        camera.zNear = 0
+        
         let cameraNode = SCNNode()
         cameraNode.camera = camera
-        cameraNode.position = SCNVector3(2, 1.5, -2.5)
+        cameraNode.position = cameraPreset.position
         cameraNode.look(at: SCNVector3(0, 1, 0))
         scene.rootNode.addChildNode(cameraNode)
         
