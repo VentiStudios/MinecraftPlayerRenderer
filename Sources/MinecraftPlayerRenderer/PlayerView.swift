@@ -11,9 +11,11 @@ import SceneKit
 @available(macOS 15.0, *)
 struct ScenePreviewView_Previews: PreviewProvider {
     static var previews: some View {
-        SceneView(
-            scene: PlayerScene.makeScene(isSlim: true),
-            options: [.autoenablesDefaultLighting, .allowsCameraControl]
-        )
+        if let data = try? FileHandle(forReadingFrom: Bundle.module.url(forResource: "default", withExtension: "png")!).readToEnd() {
+            SceneView(
+                scene: PlayerScene.makeScene(data: data, isSlim: true),
+                options: [.autoenablesDefaultLighting, .allowsCameraControl]
+            )
+        }
     }
 }
